@@ -1,8 +1,8 @@
 best <- function(state, outcome){
     
     # Check outcome
-    possible_outcomes <- c("heart attack", "heart failure", "pneumonia")
-    if(is.na(match(outcome, possible_outcomes))){
+    possible_outcomes <- c("heart attack"=11, "heart failure"=17, "pneumonia"=23)
+    if(is.na(match(outcome, names(possible_outcomes)))){
         stop("invalid outcome")
     }
     
@@ -10,10 +10,10 @@ best <- function(state, outcome){
     all_data <- read.csv("rprog-data-ProgAssignment3-data/outcome-of-care-measures.csv", na.strings = "Not Available", stringsAsFactors = FALSE)
     
     # Extracting necessary columns
-    my_data <- all_data[, c(2, 7, 11, 17, 23)]
+    my_data <- all_data[, c(2,7,possible_outcomes[outcome])]
     
     # Renaming my_data
-    names(my_data) <- c("hospital", "state", "heart attack", "heart failure", "pneumonia")
+    names(my_data) <- c("hospital", "state", outcome)
     
     ## Check state validation
     all_states <- unique(my_data$state)
