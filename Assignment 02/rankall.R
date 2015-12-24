@@ -24,4 +24,19 @@ rankall <- function(outcome, num = "best"){
     # al <- al[with(al, order(al[, 'heart attack'])),]
     # al[20,]
     
+    result <- data.frame()
+    for (i in 1:length(splited_state_data)) {
+        tmp <- splited_state_data[[i]]
+        tmp <- tmp[with(tmp, order(tmp[, outcome])),]
+        if (num == 'best') {
+            result <- rbind(result, tmp[1,])
+        }else if (num == 'worst') {
+            result <- rbind(result, tmp[length(tmp),])
+        }else{
+            result <- rbind(result, tmp[num, ])
+        }
+    }
+    
+    result
+    
 }
